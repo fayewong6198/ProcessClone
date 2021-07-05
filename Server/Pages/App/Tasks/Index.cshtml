@@ -1,0 +1,54 @@
+@page
+@model ProcessClone.Server.Pages.App.Tasks.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_AppLayout.cshtml";
+
+}
+
+<div>
+    <h4>ToDoTask</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDoTask.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDoTask.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDoTask.Component)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDoTask.Component.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDoTask.GrandMaster)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDoTask.GrandMaster.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDoTask.Master)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDoTask.Master.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDoTask.Assignee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDoTask.Assignee.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDoTask.CreatedAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDoTask.CreatedAt)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a href="/App">Back to List</a>
+</div>

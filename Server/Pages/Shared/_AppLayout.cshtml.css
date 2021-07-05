@@ -1,0 +1,32 @@
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.side-bar {
+    background-color: #2d353e;
+    color: #8695a7;
+    padding: 1rem 1rem;
+    font-size: 13px;
+    height: 100vh;
+}
+
+.side-bar .lead {
+    color: #ccc;
+    font-size: 10px;
+    margin: 1rem 0rem;
+    font-weight: 500;
+}
+
+.side-bar .item {
+    margin: 0.5rem 0rem;
+}
+
+.side-bar .link {
+    color: #8695a7;
+}
+
+.side-bar .link.active {
+    color: white;
+    font-weight: 600;
+}

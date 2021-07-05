@@ -1,0 +1,164 @@
+@page
+@model ProcessClone.Server.Pages.App.Tasks.Create.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_AppLayout.cshtml";
+
+}
+
+<h1>Create</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Component</th>
+                    <th scope="col">GrandMaster</th>
+                    <th scope="col">Master</th>
+                    <th scope="col">Assignee</th>
+                    <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                             
+                </tbody>
+            </table>
+
+            <a href="javascript:void(0);" id="AddNew"> Add new </a>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <input type="hidden" id="totalRows" value="0" />
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+
+     $(document).ready(function () {
+        $(".select2").select2();
+
+        var componentList = @Html.Raw(Json.Serialize(ViewBag.ComponentId));
+        
+        console.log(componentList)
+        var componentOptions = []
+        for (let i = 0; i < componentList.length; i++) {
+            componentOptions.push(
+                ` <option value=${componentList[i].value}> ${componentList[i].text} </option>
+                `
+            )
+        }
+
+        var grandMasterList = @Html.Raw(Json.Serialize(ViewBag.GrandMasterId));
+        
+        var grandMasterOptions = []
+        for (let i = 0; i < grandMasterList.length; i++) {
+            grandMasterOptions.push(
+                ` <option value=${grandMasterList[i].value}> ${grandMasterList[i].text} </option>
+                `
+            )
+        }
+
+        var masterList = @Html.Raw(Json.Serialize(ViewBag.MasterId));
+        
+        var masterOptions = []
+        for (let i = 0; i < masterList.length; i++) {
+            masterOptions.push(
+                ` <option value=${masterList[i].value}> ${masterList[i].text} </option>
+                `
+            )
+        }
+
+        var assigneeList = @Html.Raw(Json.Serialize(ViewBag.AssigneeId));
+        
+        var assigneeOptions = []
+        for (let i = 0; i < assigneeList.length; i++) {
+            assigneeOptions.push(
+                ` <option value=${assigneeList[i].value}> ${assigneeList[i].text} </option>
+                `
+            )
+        }
+
+        $("#AddNew").click(function () {
+            tc = parseInt($("#totalRows").val());
+            tc = tc + 1;
+            $("#totalRows").val(tc)
+
+            $("tbody").append(`
+                    <tr class="rowItems" >
+                        <th scope="row" class="counter" > ${tc} </th>
+                        <td>
+                            <input name="ToDoTasks[${tc - 1}].Name" class="form-control" />
+                        </td>
+                        <td>
+                            <select name="ToDoTasks[${tc - 1}].ComponentId"  class ="form-control">
+                                ${componentOptions}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="ToDoTasks[${tc - 1}].GrandMasterId" class =" form-control" asp-items="ViewBag.GrandMasterId">
+                                ${grandMasterOptions}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="ToDoTasks[${tc - 1}].MasterId" class ="select2 form-control" asp-items="ViewBag.MasterId">
+                                ${masterOptions}
+                            </select>
+                        </td>
+                        <td>
+                            <select name="ToDoTasks[${tc - 1}].AssigneeId" class ="select2 form-control" asp-items="ViewBag.AssigneeId">
+                                ${assigneeOptions}
+                            </select>
+                        </td>
+                        <td> 
+                            <a href="javascript:void(0);" class="delete"> Delete </a> 
+                        </td>
+
+                    </tr>
+            `)
+        });
+
+        $("tbody").on("click", ".delete", function () {
+            tc = parseInt($("#totalRows").val());
+            tc = tc - 1;
+            $("#totalRows").val(tc)
+            $(this).parents("tr").remove();
+
+             @* Update counter *@
+            let counter = 0
+            let tbody = document.getElementsByTagName('tbody')[0]
+            console.log(tbody)
+            let rows = tbody.getElementsByTagName('tr')
+
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].getElementsByClassName("counter")[0].innerHTML = `${i + 1}`
+                let inputs = rows[i].querySelectorAll('input, select');
+                inputs[0].setAttribute("name", `ToDoTasks[${i}].Name`)
+                inputs[1].setAttribute("name", `ToDoTasks[${i}].ComponentId`)
+                inputs[2].setAttribute("name", `ToDoTasks[${i}].GrandMasterId`)
+                inputs[3].setAttribute("name", `ToDoTasks[${i}].MasterId`)
+                inputs[4].setAttribute("name", `ToDoTasks[${i}].AssigneeId`)
+
+            }
+        });
+
+       $("#AddNew").click();
+         
+    });
+</script>

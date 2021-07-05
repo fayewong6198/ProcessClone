@@ -1,0 +1,14 @@
+@model IList<ProcessClone.Server.Models.ToDoTask>
+
+ <div class="lead">YOUR TASK</div>
+
+@foreach (var todo in Model)
+{
+    @if (ViewData["TaskId"] != null && String.Equals(ViewData["TaskId"].ToString(), @todo.Id.ToString(), StringComparison.InvariantCultureIgnoreCase)) {
+        <div class="item"> <a class="link active" href="/App/Tasks/?id=@todo.Id"> @todo.Name </a> </div>
+    }
+    else {
+        <div class="item"> <a class="link" href="/App/Tasks/?id=@todo.Id"> @todo.Name </a> </div>
+    }
+}
+

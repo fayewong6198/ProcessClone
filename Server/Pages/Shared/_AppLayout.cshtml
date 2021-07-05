@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Process</title>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+        @* Select 2 *@
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css?1234" />
+    <link rel="stylesheet" href="~/css/site.css?12" />
+    <link rel="stylesheet" href="~/ProcessClone.Server.styles.css" />
+
+
+
+    
+</head>
+<body>
+    <div class="app-container">
+        <div class="side-bar">
+             <div class="lead">APPLICATION</div>
+             <div class="item"> <a class="link" href="/Admin"> Admin </a> </div>
+             <div class="item"> <a class="link" href="/"> Blazor </a>  </div>
+             @if (ViewData["SelectedMenuId"] == "task") {
+                <div class="item"> <a class="link active" href="/App"> Task </a> </div>
+             }
+             else {
+                <div class="item"> <a class="link" href="/App"> Task </a> </div>
+             }
+             <div class="item"> <a class="link" href="/Component"> Component </a> </div>
+
+             
+            @await Component.InvokeAsync("UserTaskList")
+            
+        </div
+        <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Process - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

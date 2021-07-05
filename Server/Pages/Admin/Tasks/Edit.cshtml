@@ -1,0 +1,60 @@
+@page
+@model ProcessClone.Server.Pages.Admin.Tasks.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ToDoTask</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ToDoTask.Id" />
+            <div class="form-group">
+                <label asp-for="ToDoTask.Name" class="control-label"></label>
+                <input asp-for="ToDoTask.Name" class="form-control" />
+                <span asp-validation-for="ToDoTask.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDoTask.ComponentId" class="control-label"></label>
+                <select asp-for="ToDoTask.ComponentId" class="form-control" asp-items="ViewBag.ComponentId"></select>
+                <span asp-validation-for="ToDoTask.ComponentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDoTask.GrandMasterId" class="control-label"></label>
+                <select asp-for="ToDoTask.GrandMasterId" class="form-control" asp-items="ViewBag.GrandMasterId"></select>
+                <span asp-validation-for="ToDoTask.GrandMasterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDoTask.MasterId" class="control-label"></label>
+                <select asp-for="ToDoTask.MasterId" class="form-control" asp-items="ViewBag.MasterId"></select>
+                <span asp-validation-for="ToDoTask.MasterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDoTask.AssigneeId" class="control-label"></label>
+                <select asp-for="ToDoTask.AssigneeId" class="form-control" asp-items="ViewBag.AssigneeId"></select>
+                <span asp-validation-for="ToDoTask.AssigneeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToDoTask.CreatedAt" class="control-label"></label>
+                <input asp-for="ToDoTask.CreatedAt" class="form-control" />
+                <span asp-validation-for="ToDoTask.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
